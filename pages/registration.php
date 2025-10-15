@@ -37,7 +37,7 @@
             <input type="text" id="telefono" name="telefono" required><br><br>
             
             <label for="foto">Fotografía Personal:</label>
-            <input type="text" id="foto" name="foto" required><br><br>
+            <input type="file" id="foto" name="foto" required><br><br>
         
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required><br><br>
