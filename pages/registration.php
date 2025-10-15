@@ -24,12 +24,12 @@
             <input type="text" id="cedula" name="cedula" required><br><br>
 
             <label for="fecha_nac">Fecha de Nacimiento:</label>
-            <input type="text" id="fecha_nac" name="fecha_nac" required><br><br>
+            <input type="date" id="fecha_nac" name="fecha_nac" required><br><br>
         </div>
         
         <div class="one-grouper">
             <label for="correo">Correo:</label>
-            <input type="text" id="correo" name="correo" required><br><br>
+            <input type="email" id="correo" name="correo" required><br><br>
         </div>
 
         <div class="form-grouper">        
@@ -40,7 +40,7 @@
             <input type="text" id="foto" name="foto" required><br><br>
         
             <label for="password">Password:</label>
-            <input type="passowrd" id="password" name="password" required><br><br>
+            <input type="password" id="password" name="password" required><br><br>
 
             <label for="password">Repeat Password:</label>
             <input type="password" id="password" name="password" required><br><br>
