@@ -1,5 +1,5 @@
 <?php
-include('/common/connection.php');
+require('../common/connection.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tipo_usuario = 'user';
 
     $sql = "INSERT INTO usuarios (cedula, name, lastName, birthDate, mail, phoneNum, image, state, userType)
-            VALUES ('$cedula', '$lastName', '$username', '$fecha_nac', '$correo', '$telefono', '$foto', '$estado', '$tipo_usuario')";
+            VALUES ('$cedula', '$name', '$lastName', '$fecha_nac', '$correo', '$telefono', '$foto', '$estado', '$tipo_usuario')";
 
     if (mysqli_query($conn, $sql)) {
         header("Location: /index.php?success=registration_complete");
