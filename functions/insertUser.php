@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES ('$cedula', '$name', '$lastName', '$fecha_nac', '$correo', '$telefono', '$password', '$nombreImagen_DB', '$estado', '$tipo_usuario')";
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: /index.php");
+        header("Location: /index.html");
         exit();
     } else {
        
