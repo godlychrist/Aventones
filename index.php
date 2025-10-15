@@ -18,7 +18,7 @@
 </head>
 <body>
   <h1>Login</h1>
-  <form action="actions/login.php" method="post">
+  <form action="actions/login.php" method="post" class="login-form">
     <div class="form-grouper">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
