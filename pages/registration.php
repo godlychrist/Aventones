@@ -10,7 +10,7 @@
 
 <body>
     <h1>Register</h1>
-    <form action="/functions/insertUser.php" method="post">
+    <form action="/functions/insertUser.php" method="post" enctype="multipart/form-data" class="registration-form">
 
 <br>
         <div class="form-grouper">
