@@ -10,7 +10,7 @@
 
 <body>
     <h1>Register</h1>
-    <form action="/actions/insertUser.php" method="post">
+    <form action="/functions/insertUser.php" method="post">
 
 <br>
         <div class="form-grouper">
@@ -33,14 +33,14 @@
         </div>
 
         <div class="form-grouper">        
-            <label for="password">Telefono:</label>
+            <label for="telefono">Telefono:</label>
             <input type="text" id="telefono" name="telefono" required><br><br>
             
-            <label for="password">Fotografía Personal:</label>
+            <label for="foto">Fotografía Personal:</label>
             <input type="text" id="foto" name="foto" required><br><br>
         
             <label for="password">Password:</label>
-            <input type="text" id="password" name="password" required><br><br>
+            <input type="passowrd" id="password" name="password" required><br><br>
 
             <label for="password">Repeat Password:</label>
             <input type="password" id="password" name="password" required><br><br>
