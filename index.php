@@ -9,7 +9,7 @@
 </head>
 <body>
   <h1>Login</h1>
-  <form action="actions/login.php" method="post" class="login-form">
+  <form action="functions/login.php" method="post" class="login-form">
     <div class="form-grouper"> 
         <label for="username">Cedula:</label>
         <input type="text" id="cedula" name="cedula" required>
