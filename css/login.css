@@ -1,6 +1,132 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: white;
+/* --- login.css --- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+html, body {
+  height: 100%;
+  background-color: #ffffff;
+}
+
+/* contenedor general */
+.container {
+  min-height: calc(100vh - 120px);
+  padding: 150px 70px;
+}
+
+/* tarjeta principal */
+.login-wrapper {
+  background: #fff;
+  border: 1.5px solid #0d6efd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 95vw;
+  max-width: 1000px;
+  padding: 40px 50px;
+  text-align: center;
+  gap: 20px;
+  border-radius: 10px;
+}
+
+.brand-title {
+  font-size: 2rem;
+  color: #0d6efd;
+  letter-spacing: 1px;
+}
+
+/* formulario */
+.formulario-login {
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* inputs */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 5px #0d6efd;
+}
+
+/* enlaces de registro */
+.register-text {
+  color: #5f6368;
+  font-size: 14px;
+  text-align: left;
+  margin: 0;
+}
+
+.register-text a {
+  color: #0d6efd;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+/* botón */
+.login-btn {
+  width: 100%;
+  max-width: 120px;
+  padding: 10px;
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: center;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #0b5ed7;
+}
+
+/* footer */
+.footer {
+  text-align: center;
+  padding: 30px 10px;
+  background-color: #ffffff;
+  font-size: 14px;
+  color: #9b9999;
+}
+
+.footer-nav {
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.footer-nav a {
+  color: #838383;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
+
+.footer-copy {
+  color: #666;
+  font-size: 15px;
 }
