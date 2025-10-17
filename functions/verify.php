@@ -21,7 +21,9 @@ if (isset($_GET['token']) && !empty($_GET['token'])) {
                             WHERE token = '$token'";
             
             if (mysqli_query($conn, $sql_activar)) {
-                echo "¡Tu cuenta ha sido verificada y activada! Ya puedes iniciar sesión.";
+                // Cuenta activada exitosamente
+                header("Location: /index.php?ok=activated");
+                exit();
                 
             } else {
                 echo "Error al activar la cuenta. Inténtalo de nuevo.";
