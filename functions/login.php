@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = mysqli_fetch_assoc($result);
         if (md5($password) === $row['password']){
           session_start();
+          $_SESSION['cedula'] = $row['cedula'];
           $_SESSION['name'] = $row['name'];
           $_SESSION['lastname'] = $row['lastname'];
           header("Location: /pages/main.php");
