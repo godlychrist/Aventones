@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+// Si la sesión NO está iniciada (si $_SESSION['cedula'] no existe o está vacía), redirige.
+if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
+    header('Location: /index.php'); // O a la ruta correcta del login: /Aventones/index.php
+    exit();    
+} else {
+    // La sesión está iniciada, puedes obtener los datos del usuario si es necesario
+    $cedula = $_SESSION['cedula'];
+    $name = $_SESSION['name'];
+    $lastname = $_SESSION['lastname'];
+    $userType = $_SESSION['userType'];
+
+  }
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -11,6 +27,18 @@
 
   <!-- Tu CSS -->
   <link rel="stylesheet" href="/css/logIn.css">
+
+  <script>
+    
+    const session_data = {
+      cedula: "<?php echo htmlspecialchars($cedula); ?>",
+      name: "<?php echo htmlspecialchars($name); ?>",
+      lastname: "<?php echo htmlspecialchars($lastname); ?>",
+      userType: "<?php echo htmlspecialchars($userType); ?>"
+    };
+
+  </script>
+  <script src="/js/hide_pages.js"></script>
 </head>
 <body>
   <main class="container d-flex flex-column justify-content-center align-items-center min-vh-100 text-center">
@@ -20,10 +48,10 @@
     <!-- Botones principales -->
     <div class="d-flex flex-column flex-md-row flex-wrap justify-content-center gap-3">
       <!-- Rides -->
-      <a href="/pages/ride_create.php" class="btn btn-primary btn-lg px-5">
+      <a href="/pages/ride_create.php" class="btn btn-primary btn-lg px-5" id="botonConductor">
         ➕ Crear Ride
       </a>
-      <a href="/pages/ride_edit.php" class="btn btn-outline-primary btn-lg px-5">
+      <a href="/pages/ride_edit.php" class="btn btn-outline-primary btn-lg px-5" id="botonConductor2">
         ✏️ Editar Ride
       </a>
 
@@ -56,7 +84,7 @@
 
 
     <div class="mt-5">
-      <a href="/index.php" class="btn btn-link text-secondary">Cerrar sesión</a>
+      <a href="/functions/logout.php" class="btn btn-link text-secondary">Cerrar sesión</a>
     </div>
   </main>
 
