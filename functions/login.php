@@ -15,6 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $_SESSION['cedula'] = $row['cedula'];
           $_SESSION['name'] = $row['name'];
           $_SESSION['lastname'] = $row['lastname'];
+          $_SESSION['userType'] = $row['userType'];
+
           header("Location: /pages/main.php");
           exit();
         } else {
