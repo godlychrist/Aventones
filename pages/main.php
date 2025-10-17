@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Si la sesión NO está iniciada (si $_SESSION['cedula'] no existe o está vacía), redirige.
+if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
+    header('Location: /index.php'); // O a la ruta correcta del login: /Aventones/index.php
+    exit();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -42,7 +51,7 @@
     </div>
 
     <div class="mt-5">
-      <a href="/index.php" class="btn btn-link text-secondary">Cerrar sesión</a>
+      <a href="/functions/logout.php" class="btn btn-link text-secondary">Cerrar sesión</a>
     </div>
   </main>
 

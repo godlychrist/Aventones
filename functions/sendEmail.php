@@ -20,7 +20,7 @@ function sendEmail($correo, $token) {
     $mail->SetFrom('isw.asociados@gmail.com', 'Aventones');
     $mail->AddAddress($correo);
     $mail->Subject = 'Verificación de cuenta - Aventones';
-    $url_verificacion = "http://aventones.local/functions/verify.php?token=" . urlencode($token);
+    $url_verificacion = "http://www.aventones.com/functions/verify.php?token=" . urlencode($token);
     $mail->Body = 'Gracias por registrarte en Aventones. Por favor, haz clic en el siguiente enlace para verificar tu cuenta: <a href="' . $url_verificacion . '">Verificar Cuenta</a>';
 
     if(!$mail->Send()) {
