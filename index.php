@@ -4,7 +4,7 @@ ini_set('display_errors', 1); // quita en prod
 error_reporting(E_ALL);
 
 session_start();
-if (!empty($_SESSION['user'])) {
+if (!empty($_SESSION['cedula'])) {
   header('Location: /principal.php');
   exit;
 }
