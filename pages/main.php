@@ -56,18 +56,32 @@ if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
       </a>
 
       <!-- Vehículos -->
-      <a href="/pages/vehicle_create.php" class="btn btn-success btn-lg px-5">
+      <a href="/pages/vehicle_create.php" class="btn btn-success btn-lg px-6">
         🚗 Crear Vehículo
       </a>
-      <a href="/pages/vehicle_edit.php" class="btn btn-outline-success btn-lg px-5">
+      <a href="/pages/vehicle_edit.php" class="btn btn-outline-success btn-lg px-7">
         🛠️ Editar Vehículo
       </a>
 
       <!-- Perfil -->
-      <a href="/pages/profile.php" class="btn btn-info btn-lg px-5 text-white">
+      <a href="/pages/profile.php" class="btn btn-info btn-lg px-8 text-white">
         👤 Ver Perfil
       </a>
     </div>
+
+     <a href="/pages/ride.php" class="btn btn-info btn-lg px-5 text-white">
+        👤 Ver rides
+      </a>
+    </div>
+
+    
+     <a href="/pages/vehicle.php" class="btn btn-info btn-lg px-9 text-white">
+        👤 Ver vehiculo
+      </a>
+    </div>
+
+
+
 
     <div class="mt-5">
       <a href="/functions/logout.php" class="btn btn-link text-secondary">Cerrar sesión</a>

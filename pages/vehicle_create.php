@@ -18,7 +18,7 @@
       <h2 class="h5 text-secondary m-0">Registrar Vehículo</h2>
 
       <!-- FORMULARIO -->
-      <form action="/functions/vehicle_store.php" method="post" enctype="multipart/form-data" class="formulario-login text-start w-100 mt-3" style="max-width: 560px;">
+      <form action="/functions/insertvehicle.php" method="post" enctype="multipart/form-data" class="formulario-login text-start w-100 mt-3" style="max-width: 560px;">
 
         <div class="row g-3">
           <div class="col-12 col-md-6">
