@@ -12,9 +12,18 @@ $date = $_GET['date'] ?? '';
 $space = $_GET['space'] ?? '';
 $space_cost = $_GET['space_cost'] ?? '';
 
+if (!empty($date)) {
+    // Si la fecha es YYYY-MM-DD HH:MM:SS, la cortamos a YYYY-MM-DD HH:MM y cambiamos el espacio por T
+    $date = str_replace(' ', 'T', substr($date, 0, 16));
+}
+
+// 2. Asegurar que los espacios sean un número limpio
+$space = (int)$space;
+
 ?>
 
 <!DOCTYPE html>
+<html lang="es">  
 <html lang="es">  
 <head>
   <meta charset="UTF-8" />
@@ -79,16 +88,16 @@ $space_cost = $_GET['space_cost'] ?? '';
             <label for="vehicle_id" class="form-label fw-bold text-dark">Vehículo</label>
             <select id="vehicle_id" name="vehicle_id" class="form-select" required>
               <option value="">-- Seleccione un vehículo --</option>
-                    
-            <?php
-            // 🛑 PASO 3: Reemplaza el bloque PHP conflictivo con el bucle simple
-            if (isset($vehicles) && is_array($vehicles)) {
-                foreach ($vehicles as $vehiculo) {
-                    $nombre_vehiculo = htmlspecialchars($vehiculo['brand'] . ' ' . $vehiculo['model']);
-                    $valor_id = htmlspecialchars($vehiculo['id']);
-                    
-                    echo "<option value='{$valor_id}'>{$nombre_vehiculo}</option>";
-                }
+        
+<?php
+// 🛑 PASO 3: Reemplaza el bloque PHP conflictivo con el bucle simple
+if (isset($vehicles) && is_array($vehicles)) {
+    foreach ($vehicles as $vehiculo) {
+        $nombre_vehiculo = htmlspecialchars($vehiculo['brand'] . ' ' . $vehiculo['model']);
+        $valor_id = htmlspecialchars($vehiculo['id']);
+        
+        echo "<option value='{$valor_id}'>{$nombre_vehiculo}</option>";
+    }
 }
 ?>
             </select>
