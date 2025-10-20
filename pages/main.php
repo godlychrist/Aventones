@@ -51,10 +51,7 @@ if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
       <a href="/pages/ride_create.php" class="btn btn-primary btn-lg px-5" id="botonConductor">
         ➕ Crear Ride
       </a>
-      <a href="/pages/ride_edit.php" class="btn btn-outline-primary btn-lg px-5" id="botonConductor2">
-        ✏️ Editar Ride
-      </a>
-
+      
       <!-- Vehículos -->
       <a href="/pages/vehicle_create.php" class="btn btn-success btn-lg px-6">
         🚗 Crear Vehículo
@@ -80,6 +77,11 @@ if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
       </a>
     </div>
 
+
+     <a href="/pages/ride_edit.php" class="btn btn-info btn-lg px-8 text-white">
+        👤 editar ride
+      </a>
+    </div>
 
 
 
