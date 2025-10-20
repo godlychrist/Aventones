@@ -32,6 +32,7 @@ if (isset($_GET['ok']) && $_GET['ok'] === 'activated') {
   $alert = '✅ Tu cuenta fue activada. Ya puedes iniciar sesión.';
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

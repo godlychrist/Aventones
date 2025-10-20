@@ -24,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nombreImagen_DB = null; 
 
-    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+    if (isset($_FILES['image']) && $_FILES['image']['image'] === UPLOAD_ERR_OK) {
         
-        $nombreArchivoUnico = uniqid() . '_' . basename($_FILES['foto']['name']);
-        $rutaTemporal = $_FILES['foto']['tmp_name'];
+        $nombreArchivoUnico = uniqid() . '_' . basename($_FILES['image']['name']);
+        $rutaTemporal = $_FILES['image']['tmp_name'];
         $rutaDestinoFinal = $directorio_subida . $nombreArchivoUnico; 
         
    
