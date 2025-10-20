@@ -37,15 +37,32 @@ $sql = $capacityExists
   ? "SELECT id, plateNum, color, brand, model, year, image, capacity FROM vehicles ORDER BY brand, model, plateNum"
   : "SELECT id, plateNum, color, brand, model, year, image FROM vehicles ORDER BY brand, model, plateNum";
 
+// ... (código anterior)
+
 $vehicles = [];
 
 if ($res = mysqli_query($conn, $sql)) {
   while ($row = mysqli_fetch_assoc($res)) {
+    
     $yearTxt = '';
     if (!empty($row['year'])) {
       // si es DATE 'YYYY-MM-DD' → tomamos YYYY
       $yearTxt = substr($row['year'], 0, 4);
     }
+    
+    // 🛑 ARREGLO PARA MOSTRAR LA FOTO (LIMPIAR LA RUTA)
+    $imagePath = $row['image'] ?? '';
+    
+    // Si la ruta comienza con '/Aventones', la recortamos para que solo quede /images/...
+    if (strpos($imagePath, '/Aventones') === 0) {
+        $imagePath = substr($imagePath, strlen('/Aventones'));
+    }
+    // Asegurarse de que al menos tenga un '/' si no lo tiene.
+    if (!empty($imagePath) && $imagePath[0] !== '/') {
+        $imagePath = '/' . $imagePath;
+    }
+
+
     $vehicles[] = [
       'id'       => (int)($row['id'] ?? 0),
       'plateNum' => $row['plateNum'] ?? '',
@@ -53,12 +70,13 @@ if ($res = mysqli_query($conn, $sql)) {
       'brand'    => $row['brand'] ?? '',
       'model'    => $row['model'] ?? '',
       'year'     => $yearTxt,
-      'image'    => $row['image'] ?? '',
+      'image'    => $imagePath, // 👈 Se pasa la ruta corregida a la vista
       'capacity' => $capacityExists ? ($row['capacity'] ?? '') : '',
     ];
   }
   mysqli_free_result($res);
 } else {
+// ... (código posterior)
   error_log('showvehicle query error: ' . mysqli_error($conn));
   $_GET['err'] = 'query';
 }
