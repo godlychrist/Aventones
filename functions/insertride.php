@@ -3,7 +3,7 @@ require('../common/connection.php');
 require('sendEmail.php');
 
 $directorio_subida = '../images/';
-
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
@@ -14,9 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lugardellegada = $_POST['arrival'];
     $horaydia = $_POST['date'];
     $costoxespacio = $_POST['space_cost'];
-    $numerodeplaca = $_POST['vehicle_id'];
     $cantidad = $_POST['space'];
-
+    $cedula = $_SESSION ['cedula'];  
+    $vehicle = $_POST['vehicle_id'];
+   
 
     $nombreImagen_DB = null; 
 
@@ -40,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     $sql = "INSERT INTO rides (name, destination, arrival, date, space_cost, space ,user_id, vehicle_id)
-            VALUES ('$nombre', '$lugardesalida', '$lugardellegada', '$horaydia', '$costoxespacio','$cantidad', 1, '$numerodeplaca')";
+            VALUES ('$nombre', '$lugardesalida', '$lugardellegada', '$horaydia', '$costoxespacio','$cantidad', '$cedula', '$vehicle')";
 
      if (mysqli_query($conn, $sql)) {
         header("Location: /index.php");
