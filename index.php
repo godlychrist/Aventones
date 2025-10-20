@@ -3,7 +3,29 @@
 ini_set('display_errors', 1); // quita en prod
 error_reporting(E_ALL);
 
-$alert = ''; // ✅ prevenir el warning
+session_start();
+if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
+  header('Location: /index.php'); 
+  exit();
+  
+}
+
+// Mensajes por ?err=
+$alert = '';
+if (isset($_GET['err'])) {
+  switch ($_GET['err']) {
+    case 'pendiente':
+      $alert = 'Tu cuenta está <strong>Pendiente</strong>. Revisa tu correo y activa la cuenta.';
+      break;
+    case 'inactivo':
+      $alert = 'Tu cuenta está <strong>Inactiva</strong>. Contacta al administrador.';
+      break;
+    case 'cred':
+    default:
+      $alert = 'Cédula o contraseña incorrectos.';
+      break;
+  }
+}
 
 // Mensaje de éxito (por ejemplo, después de activar cuenta)
 if (isset($_GET['ok']) && $_GET['ok'] === 'activated') {

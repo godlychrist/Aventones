@@ -11,6 +11,7 @@ $sql = "SELECT id, brand, model, user_id FROM vehicles WHERE user_id = '$cedula'
 $resultado = mysqli_query($conn, $sql);
 $vehicles = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $ride_id = $_POST['ride_id'];
@@ -21,10 +22,11 @@ $arrival = $_POST['arrival'];
 $date = $_POST['date'];
 $space = $_POST['space'];
 $space_cost = $_POST['space_cost'];
+$vehicle_id = $_POST['vehicle_id'];
 
 
 $sql_edit = "UPDATE rides SET name = '$name', destination = '$destination', arrival = '$arrival',
- date = '$date', space = '$space', space_cost = '$space_cost' WHERE id = '$ride_id'";
+ date = '$date', space = '$space', space_cost = '$space_cost', vehicle_id = '$vehicle_id' WHERE id = '$ride_id'";
 
  if (mysqli_query($conn, $sql_edit)) {
     header("Location: /pages/ride.php");
@@ -35,3 +37,5 @@ $sql_edit = "UPDATE rides SET name = '$name', destination = '$destination', arri
 
 }
 ?>
+
+
