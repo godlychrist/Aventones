@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES ('$nombre', '$lugardesalida', '$lugardellegada', '$horaydia', '$costoxespacio','$cantidad', 1, '$numerodeplaca')";
 
      if (mysqli_query($conn, $sql)) {
-        header("Location: /index.php");
+        header("Location: /pages/ride.php");
         exit();
     } else {
        
