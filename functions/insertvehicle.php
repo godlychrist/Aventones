@@ -3,6 +3,7 @@ require('../common/connection.php');
 require('sendEmail.php');
 
 $directorio_subida = '../images/';
+session_start();
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -15,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $modelo = $_POST['model'];
     $año = $_POST['year'];
     $capacidad = $_POST['capacity'];
+    $cedula = $_SESSION['cedula'];
 
 
     $nombreImagen_DB = null; 
@@ -38,12 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       
         }
     }
-    $sql = "INSERT INTO vehicles (plateNum, color, brand, model, year, image, capacity)
-            VALUES ('$numerodeplaca', '$color', '$marca', '$modelo', '$año', '$nombreImagen_DB', '$capacidad')";
+    $sql = "INSERT INTO vehicles (plateNum, color, brand, model, year, image, user_id, capacity)
+            VALUES ('$numerodeplaca', '$color', '$marca', '$modelo', '$año', '$nombreImagen_DB', '$cedula', '$capacidad')";
 
      if (mysqli_query($conn, $sql)) {
-        header("Location: /index.php");
-        exit();
+        header("Location: /pages/vehicle.php");
     } else {
        
     }
