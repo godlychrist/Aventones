@@ -1,3 +1,10 @@
+<?php
+session_start();
+require_once ('../functions/editRide.php' );
+
+$cedula = $_SESSION['cedula'];
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -60,8 +67,18 @@
             <label for="vehicle_id" class="form-label fw-bold text-dark">Vehículo</label>
             <select id="vehicle_id" name="vehicle_id" class="form-select" required>
               <option value="">Seleccione vehículo</option>
-              <option value="1">Toyota Corolla</option>
-              <option value="2">Hyundai Tucson</option>
+             <?php
+            
+            // 🛑 PASO 3: Reemplaza el bloque PHP conflictivo con el bucle simple
+            if (isset($vehicles) && is_array($vehicles)) {
+            foreach ($vehicles as $vehiculo) {
+            $nombre_vehiculo = htmlspecialchars($vehiculo['brand'] . ' ' . $vehiculo['model']);
+            $valor_id = htmlspecialchars($vehiculo['id']);
+        
+        echo "<option value='{$valor_id}'>{$nombre_vehiculo}</option>";
+    }
+}
+?>
               <!-- Aquí luego se llenará dinámicamente -->
             </select>
           </div>
