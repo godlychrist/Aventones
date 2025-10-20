@@ -15,6 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $modelo = $_POST['model'];
     $año = $_POST['year'];
     $capacidad = $_POST['capacity'];
+    $userid = $_POST['user_id'];
+   
 
 
     $nombreImagen_DB = null; 
@@ -38,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       
         }
     }
-    $sql = "INSERT INTO vehicles (plateNum, color, brand, model, year, image, capacity)
-            VALUES ('$numerodeplaca', '$color', '$marca', '$modelo', '$año', '$nombreImagen_DB', '$capacidad')";
+    $sql = "INSERT INTO vehicles (plateNum, color, brand, model, year, image, capacity, user_id)
+            VALUES ('$numerodeplaca', '$color', '$marca', '$modelo', '$año', '$nombreImagen_DB', '$capacidad', '$userid')";
 
      if (mysqli_query($conn, $sql)) {
         header("Location: /index.php");
