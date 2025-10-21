@@ -44,7 +44,6 @@ $space = (int)$space;
 
       <!-- FORMULARIO -->
       <form action="/functions/editRide.php" method="post" class="formulario-login text-start w-100 mt-3" style="max-width: 560px;">
-      <form action="/functions/editRide.php" method="post" class="formulario-login text-start w-100 mt-3" style="max-width: 560px;">
         
         <!-- ID oculto -->
         <input type="hidden" name="ride_id" value="1"><!-- Se llenará dinámicamente -->
@@ -53,7 +52,6 @@ $space = (int)$space;
         <div class="mb-3">
           <label for="name" class="form-label fw-bold text-dark">Nombre del Ride</label>
           <input type="text" id="name" name="name" class="form-control" placeholder="Viaje al trabajo" value="<?= htmlspecialchars($name) ?>" required>
-          <input type="text" id="name" name="name" class="form-control" placeholder="Viaje al trabajo" value="<?= htmlspecialchars($name) ?>" required>
         </div>
 
         
@@ -61,11 +59,9 @@ $space = (int)$space;
           <div class="col-12 col-md-6">
             <label for="destination" class="form-label fw-bold text-dark">Lugar de salida</label>
             <input type="text" id="destination" name="destination" class="form-control" placeholder="San José" value="<?= htmlspecialchars($destination) ?>" required>
-            <input type="text" id="destination" name="destination" class="form-control" placeholder="San José" value="<?= htmlspecialchars($destination) ?>" required>
           </div>
           <div class="col-12 col-md-6">
             <label for="arrival" class="form-label fw-bold text-dark">Lugar de llegada</label>
-            <input type="text" id="arrival" name="arrival" class="form-control" placeholder="Cartago" value="<?= htmlspecialchars($arrival) ?>" required>
             <input type="text" id="arrival" name="arrival" class="form-control" placeholder="Cartago" value="<?= htmlspecialchars($arrival) ?>" required>
           </div>
         </div>
@@ -75,11 +71,9 @@ $space = (int)$space;
           <div class="col-12 col-md-6">
             <label for="date" class="form-label fw-bold text-dark">Fecha y hora</label>
             <input type="datetime-local" id="date" name="date" class="form-control" value="<?= htmlspecialchars($date) ?>" required>
-            <input type="datetime-local" id="date" name="date" class="form-control" value="<?= htmlspecialchars($date) ?>" required>
           </div>
           <div class="col-12 col-md-6">
             <label for="space" class="form-label fw-bold text-dark">Espacios disponibles</label>
-            <input type="number" id="space" name="space" class="form-control" value="<?= htmlspecialchars($space) ?>" required>
             <input type="number" id="space" name="space" class="form-control" value="<?= htmlspecialchars($space) ?>" required>
           </div>
         </div>
@@ -88,7 +82,6 @@ $space = (int)$space;
         <div class="row g-3 mt-1">
           <div class="col-12 col-md-6">
             <label for="space_cost" class="form-label fw-bold text-dark">Costo por espacio</label>
-            <input type="text" id="space_cost" name="space_cost" class="form-control" value="<?= htmlspecialchars($space_cost) ?>" required>
             <input type="text" id="space_cost" name="space_cost" class="form-control" value="<?= htmlspecialchars($space_cost) ?>" required>
           </div>
           <div class="col-12 col-md-6">
