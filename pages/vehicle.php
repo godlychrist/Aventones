@@ -8,8 +8,8 @@ $err = $_GET['err'] ?? '';
 
 // Si se abre directo sin pasar por el loader, redirige al loader.
 if (!isset($vehicles)) {
-  header('Location: /functions/showvehicle.php');
-  exit;
+    header('Location: /functions/showvehicle.php');
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -53,62 +53,67 @@ if (!isset($vehicles)) {
       <a href="/pages/vehicle_create.php" class="btn btn-primary">➕ Nuevo Vehículo</a>
     </div>
 
-    <?php if (empty($vehicles)): ?>
-      <div class="alert alert-secondary">No hay vehículos en la base de datos.</div>
-    <?php else: ?>
-      <div class="table-responsive">
-        <table class="table table-bordered align-middle">
-          <thead class="table-light">
-            <tr>
-              <th>#</th>
-              <th>Número de placa</th>
-              <th>Marca</th>
-              <th>Modelo</th>
-              <th>Año</th>
-              <th>Color</th>
-              <th>Capacidad</th>
-              <th>Fotografía</th>
-              <th style="width: 180px;">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($vehicles as $i => $v): ?>
-              <tr>
-                <td><?= $i + 1 ?></td>
-                <td><?= htmlspecialchars($v['plateNum'] ?? '') ?></td>
-                <td><?= htmlspecialchars($v['brand'] ?? '') ?></td>
-                <td><?= htmlspecialchars($v['model'] ?? '') ?></td>
-                <td><?= htmlspecialchars($v['year'] ?? '') ?></td>
-                <td><?= htmlspecialchars($v['color'] ?? '') ?></td>
-                <td><?= htmlspecialchars($v['capacity'] ?? '') ?></td>
-                <td>
-                  <?php if (!empty($v['image'])): ?>
-                    <img src="<?= htmlspecialchars($v['image']) ?>" alt="Foto vehículo" style="width:70px;height:50px;object-fit:cover;border-radius:6px;">
-                  <?php else: ?>
-                    <span class="text-muted">—</span>
-                  <?php endif; ?>
-                </td>
-                <td>
-                  <div class="d-flex gap-2">
-                    <!-- Editar: solo enlace (sin funcionalidad) -->
-                    <a class="btn btn-sm btn-outline-primary"
-                       href="/pages/vehicle_edit.php?id=<?= urlencode((string)($v['id'] ?? 0)) ?>">
-                      ✏ Editar
-                    </a>
+        <?php if (empty($vehicles)): ?>
+            <div class="alert alert-secondary">No hay vehículos en la base de datos.</div>
+        <?php else: ?>
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Número de placa</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Año</th>
+                            <th>Color</th>
+                            <th>Capacidad</th>
+                            <th>Fotografía</th>
+                            <th style="width: 180px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($vehicles as $i => $v): ?>
+                            <tr>
+                                <td><?= $i + 1 ?></td>
+                                <td><?= htmlspecialchars($v['plateNum'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($v['brand'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($v['model'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($v['year'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($v['color'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($v['capacity'] ?? '') ?></td>
+                                <td>
+                                    <?php if (!empty($v['image'])): ?>
+                                        <img src="<?= htmlspecialchars($v['image']) ?>" alt="Foto vehículo" style="width:70px;height:50px;object-fit:cover;border-radius:6px;">
+                                    <?php else: ?>
+                                        <span class="text-muted">—</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a class="btn btn-sm btn-outline-primary"
+                                          href="/pages/vehicle_edit.php?id=<?= urlencode((string)($v['id'] ?? 0))?>
+                                            &plateNum=<?=urlencode((string)($v['plateNum'] ?? ''))?>
+                                            &brand=<?=urlencode((string)($v['brand'] ?? ''))?>
+                                            &model=<?=urlencode((string)($v['model'] ?? ''))?>
+                                            &year=<?=urlencode((string)($v['year'] ?? ''))?>
+                                            &color=<?=urlencode((string)($v['color'] ?? ''))?>
+                                            &capacity=<?=urlencode((string)($v['capacity'] ?? ''))?>
+                                            &image=<?=urlencode((string)($v['image'] ?? ''))?>">
+                                            ✏ Editar
+                                        </a>
 
-                    <!-- Eliminar: funcional (POST) -->
-                    <form action="/functions/vehicle_delete.php" method="post" onsubmit="return confirm('¿Eliminar este vehículo?');">
-                      <input type="hidden" name="vehicle_id" value="<?= htmlspecialchars((string)($v['id'] ?? 0)) ?>">
-                      <button type="submit" class="btn btn-sm btn-outline-danger">🗑 Eliminar</button>
-                    </form>
-                  </div>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    <?php endif; ?>
+                                        <form action="/functions/vehicle_delete.php" method="post" onsubmit="return confirm('¿Eliminar este vehículo?');">
+                                            <input type="hidden" name="vehicle_id" value="<?= htmlspecialchars((string)($v['id'] ?? 0)) ?>">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">🗑 Eliminar</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
 
   </div>
 </body>
