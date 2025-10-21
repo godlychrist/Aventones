@@ -2,13 +2,9 @@
 // /pages/vehicles.php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-// /pages/vehicles.php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 
 $ok  = $_GET['ok']  ?? '';
 $err = $_GET['err'] ?? '';
-$cedula = $_SESSION['cedula'] ?? '';
 
 // Si se abre directo sin pasar por el loader, redirige al loader.
 if (!isset($vehicles)) {
@@ -23,24 +19,8 @@ if (!isset($vehicles)) {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mis Vehículos - Aventones</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="/css/logIn.css" />
 </head>
-<body class="bg-light">
-  <div class="container py-4">
-
-    <!-- Header / Nav -->
-    <header class="d-flex justify-content-between align-items-center mb-4">
-      <nav class="d-flex gap-3">
-        <a href="/pages/main.php">Panel</a>
-        <a href="/functions/showride.php">Rides</a>
-        <!-- ✅ apunta al loader -->
-        <a href="/functions/showvehicle.php" class="fw-bold">Vehículos</a>
-        <a href="/pages/bookings.php">Reservas</a>
-      </nav>
-      <div class="d-flex gap-2">
-        <a class="btn btn-sm btn-outline-secondary" href="/pages/profile.php">Perfil</a>
-        <a class="btn btn-sm btn-outline-secondary" href="/index.php">Cerrar sesión</a>
 <body class="bg-light">
   <div class="container py-4">
 
@@ -60,7 +40,6 @@ if (!isset($vehicles)) {
     </header>
 
     <h1 class="h3 mb-3">Mis Vehículos</h1>
-    <h1 class="h3 mb-3">Mis Vehículos</h1>
 
     <?php if ($ok): ?>
       <div class="alert alert-success"><?= htmlspecialchars($ok) ?></div>
@@ -68,17 +47,7 @@ if (!isset($vehicles)) {
     <?php if ($err): ?>
       <div class="alert alert-danger">Ocurrió un error (<?= htmlspecialchars($err) ?>)</div>
     <?php endif; ?>
-    <?php if ($ok): ?>
-      <div class="alert alert-success"><?= htmlspecialchars($ok) ?></div>
-    <?php endif; ?>
-    <?php if ($err): ?>
-      <div class="alert alert-danger">Ocurrió un error (<?= htmlspecialchars($err) ?>)</div>
-    <?php endif; ?>
 
-    <!-- Botón Nuevo -->
-    <div class="d-flex justify-content-end mb-3">
-      <a href="/pages/vehicle_create.php" class="btn btn-primary">➕ Nuevo Vehículo</a>
-    </div>
     <!-- Botón Nuevo -->
     <div class="d-flex justify-content-end mb-3">
       <a href="/pages/vehicle_create.php" class="btn btn-primary">➕ Nuevo Vehículo</a>
@@ -139,8 +108,6 @@ if (!isset($vehicles)) {
           </tbody>
         </table>
       </div>
-    <?php endif; ?>
-
     <?php endif; ?>
 
   </div>
