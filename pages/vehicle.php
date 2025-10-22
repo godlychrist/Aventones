@@ -73,17 +73,28 @@ if (!isset($vehicles)) {
                     </thead>
                     <tbody>
                         <?php foreach ($vehicles as $i => $v): ?>
+                            <?php
+                            // Los valores ya vienen limpios desde showvehicle.php
+                            $id = $v['id'] ?? '0';
+                            $plateNum = $v['plateNum'] ?? '';
+                            $brand = $v['brand'] ?? '';
+                            $model = $v['model'] ?? '';
+                            $year = $v['year'] ?? '';
+                            $color = $v['color'] ?? '';
+                            $capacity = $v['capacity'] ?? '';
+                            $image = $v['image'] ?? '';
+                            ?>
                             <tr>
                                 <td><?= $i + 1 ?></td>
-                                <td><?= htmlspecialchars($v['plateNum'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($v['brand'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($v['model'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($v['year'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($v['color'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($v['capacity'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($plateNum) ?></td>
+                                <td><?= htmlspecialchars($brand) ?></td>
+                                <td><?= htmlspecialchars($model) ?></td>
+                                <td><?= htmlspecialchars($year) ?></td>
+                                <td><?= htmlspecialchars($color) ?></td>
+                                <td><?= htmlspecialchars($capacity) ?></td>
                                 <td>
-                                    <?php if (!empty($v['image'])): ?>
-                                        <img src="<?= htmlspecialchars($v['image']) ?>" alt="Foto vehículo" style="width:70px;height:50px;object-fit:cover;border-radius:6px;">
+                                    <?php if (!empty($image)): ?>
+                                        <img src="<?= htmlspecialchars($image) ?>" alt="Foto vehículo" style="width:70px;height:50px;object-fit:cover;border-radius:6px;">
                                     <?php else: ?>
                                         <span class="text-muted">—</span>
                                     <?php endif; ?>
@@ -91,19 +102,12 @@ if (!isset($vehicles)) {
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a class="btn btn-sm btn-outline-primary"
-                                          href="/pages/vehicle_edit.php?id=<?= urlencode((string)($v['id'] ?? 0))?>
-                                            &plateNum=<?=urlencode((string)($v['plateNum'] ?? ''))?>
-                                            &brand=<?=urlencode((string)($v['brand'] ?? ''))?>
-                                            &model=<?=urlencode((string)($v['model'] ?? ''))?>
-                                            &year=<?=urlencode((string)($v['year'] ?? ''))?>
-                                            &color=<?=urlencode((string)($v['color'] ?? ''))?>
-                                            &capacity=<?=urlencode((string)($v['capacity'] ?? ''))?>
-                                            &image=<?=urlencode((string)($v['image'] ?? ''))?>">
+                                          href="/pages/vehicle_edit.php?id=<?= urlencode($id) ?>&plateNum=<?= urlencode($plateNum) ?>&brand=<?= urlencode($brand) ?>&model=<?= urlencode($model) ?>&year=<?= urlencode($year) ?>&color=<?= urlencode($color) ?>&capacity=<?= urlencode($capacity) ?>&image=<?= urlencode($image) ?>">
                                             ✏ Editar
                                         </a>
 
                                         <form action="/functions/vehicle_delete.php" method="post" onsubmit="return confirm('¿Eliminar este vehículo?');">
-                                            <input type="hidden" name="vehicle_id" value="<?= htmlspecialchars((string)($v['id'] ?? 0)) ?>">
+                                            <input type="hidden" name="vehicle_id" value="<?= htmlspecialchars($id) ?>">
                                             <button type="submit" class="btn btn-sm btn-outline-danger">🗑 Eliminar</button>
                                         </form>
                                     </div>

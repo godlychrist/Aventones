@@ -1,5 +1,4 @@
 <?php
-// /pages/vehicle_create.php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -25,7 +24,6 @@ $cedula = (int)$_SESSION['cedula'];
       <h2 class="h5 text-secondary m-0">Crear Vehículo</h2>
 
       <form action="/functions/insertvehicle.php" method="post" enctype="multipart/form-data" class="formulario-login text-start w-100 mt-3" style="max-width: 560px;">
-        <!-- Hidden opcional (el backend usará la sesión igualmente) -->
         <input type="hidden" name="user_id" value="<?= htmlspecialchars((string)$cedula) ?>">
 
         <div class="row g-3">
@@ -57,7 +55,8 @@ $cedula = (int)$_SESSION['cedula'];
           </div>
           <div class="col-12 col-md-6">
             <label for="capacity" class="form-label fw-bold text-dark">Capacidad de asientos</label>
-            <input type="number" id="capacity" name="capacity" min="1" class="form-control" required>
+            <input type="number" id="capacity" name="capacity" min="1" max="4" class="form-control" required>
+            <small class="text-muted">De 1 a 4 asientos.</small>
           </div>
         </div>
 
@@ -76,5 +75,8 @@ $cedula = (int)$_SESSION['cedula'];
       </form>
     </div>
   </main>
+
+  <!-- JS externo que “clampa” capacity a 1..4 -->
+  <script src="/js/vehicle_form.js"></script>
 </body>
 </html>
