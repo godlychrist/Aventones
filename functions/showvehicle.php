@@ -37,8 +37,6 @@ $sql = $capacityExists
   ? "SELECT id, plateNum, color, brand, model, year, image, capacity FROM vehicles ORDER BY brand, model, plateNum"
   : "SELECT id, plateNum, color, brand, model, year, image FROM vehicles ORDER BY brand, model, plateNum";
 
-// ... (código anterior)
-
 $vehicles = [];
 
 if ($res = mysqli_query($conn, $sql)) {
@@ -47,7 +45,12 @@ if ($res = mysqli_query($conn, $sql)) {
     $yearTxt = '';
     if (!empty($row['year'])) {
       // si es DATE 'YYYY-MM-DD' → tomamos YYYY
-      $yearTxt = substr($row['year'], 0, 4);
+      $yearValue = substr($row['year'], 0, 4);
+      
+      // 🔧 ARREGLO: Solo usar el año si NO es '0000' o '0'
+      if ($yearValue !== '0000' && $yearValue !== '0' && (int)$yearValue > 0) {
+        $yearTxt = $yearValue;
+      }
     }
     
     // 🛑 ARREGLO PARA MOSTRAR LA FOTO (LIMPIAR LA RUTA)
@@ -62,21 +65,22 @@ if ($res = mysqli_query($conn, $sql)) {
         $imagePath = '/' . $imagePath;
     }
 
+    // 🔧 ARREGLO: Limpiar capacity de espacios
+    $capacityValue = $capacityExists ? trim($row['capacity'] ?? '') : '';
 
     $vehicles[] = [
       'id'       => (int)($row['id'] ?? 0),
-      'plateNum' => $row['plateNum'] ?? '',
-      'color'    => $row['color'] ?? '',
-      'brand'    => $row['brand'] ?? '',
-      'model'    => $row['model'] ?? '',
-      'year'     => $yearTxt,
-      'image'    => $imagePath, // 👈 Se pasa la ruta corregida a la vista
-      'capacity' => $capacityExists ? ($row['capacity'] ?? '') : '',
+      'plateNum' => trim($row['plateNum'] ?? ''),
+      'color'    => trim($row['color'] ?? ''),
+      'brand'    => trim($row['brand'] ?? ''),
+      'model'    => trim($row['model'] ?? ''),
+      'year'     => $yearTxt, // 👈 Ahora estará vacío si es 0000
+      'image'    => $imagePath,
+      'capacity' => $capacityValue, // 👈 Sin espacios
     ];
   }
   mysqli_free_result($res);
 } else {
-// ... (código posterior)
   error_log('showvehicle query error: ' . mysqli_error($conn));
   $_GET['err'] = 'query';
 }
@@ -85,3 +89,4 @@ mysqli_close($conn);
 
 /** 3) Render de la vista que usa $vehicles */
 require ('../pages/vehicle.php');
+?>

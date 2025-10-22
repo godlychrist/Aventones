@@ -1,11 +1,7 @@
 <?php
 session_start();
-// Aunque este archivo no ejecuta la edición, lo mantenemos por consistencia,
-// pero el require_once es innecesario para la vista. Lo quitaremos.
-// require_once ('../functions/editRide.php' ); // <-- Quitamos el require innecesario
 
-// 1. OBTENER Y CORREGIR LAS VARIABLES DE LA URL
-// Las variables ahora coinciden con los nombres de la URL en pages/vehicles.php
+// 1. OBTENER LAS VARIABLES DE LA URL
 $vehicle_id = $_GET['id'] ?? null;
 $plateNum   = $_GET['plateNum'] ?? '';
 $brand      = $_GET['brand'] ?? '';
@@ -13,12 +9,7 @@ $model      = $_GET['model'] ?? '';
 $year       = $_GET['year'] ?? '';
 $color      = $_GET['color'] ?? '';
 $capacity   = $_GET['capacity'] ?? '';
-$image      = $_GET['image'] ?? ''; // La URL de la imagen actual (opcional para mostrar)
-
-// La fecha y hora no se usa para vehículos, por lo que se quita la lógica de $date.
-// Si deseas usar el campo 'year' como un número limpio, puedes hacer:
-$year = (int)$year;
-$capacity = (int)$capacity;
+$image      = $_GET['image'] ?? '';
 
 ?>
 
@@ -68,11 +59,15 @@ $capacity = (int)$capacity;
                 <div class="row g-3 mt-1">
                     <div class="col-12 col-md-6">
                         <label for="year" class="form-label fw-bold text-dark">Año</label>
-                        <input type="number" id="year" name="year" class="form-control" value="<?= htmlspecialchars((string)$year) ?>" min="1900" max="2100" required>
+                        <input type="number" id="year" name="year" class="form-control" 
+                               value="<?= htmlspecialchars(trim($year)) ?>" 
+                               min="1900" max="2100" required>
                     </div>
                     <div class="col-12 col-md-6">
                         <label for="capacity" class="form-label fw-bold text-dark">Capacidad de asientos</label>
-                        <input type="number" id="capacity" name="capacity" class="form-control" value="<?= htmlspecialchars((string)$capacity) ?>" min="1" required>
+                        <input type="number" id="capacity" name="capacity" class="form-control" 
+                               value="<?= htmlspecialchars(trim($capacity)) ?>" 
+                               min="1" required>
                     </div>
                 </div>
 
