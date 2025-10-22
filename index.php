@@ -1,13 +1,14 @@
 <?php
 // /pages/login.php
-ini_set('display_errors', 1); // quita en prod
+ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
-  header('Location: /index.php'); 
+
+// Si YA hay sesión, no tiene sentido mostrar el login
+if (!empty($_SESSION['cedula'])) {
+  header('Location: /pages/main.php'); // o /index.php si ese es tu home
   exit();
-  
 }
 
 // Mensajes por ?err=
@@ -32,7 +33,6 @@ if (isset($_GET['ok']) && $_GET['ok'] === 'activated') {
   $alert = '✅ Tu cuenta fue activada. Ya puedes iniciar sesión.';
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
