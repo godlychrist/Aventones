@@ -1,18 +1,18 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+  if (!window.session_data) return;
 
-    const tipoUsuario = session_data.userType; // Obtener el tipo de usuario desde los datos de sesión
+  const tipoUsuario = String(window.session_data.userType || '')
+    .trim()
+    .toLowerCase();
 
-    const botonConductor = document.getElementById('botonConductor');
-    const botonConductor2 = document.getElementById('botonConductor2');
-    const botonPasajero = document.getElementById('botonPasajero');
+  const botonConductor = document.getElementById('botonConductor');
+  const botonVehiculo  = document.getElementById('botoncrearvehiculo');
 
-    if (tipoUsuario === 'driver') {
-        // Mostrar botones para conductores
-        if (botonConductor) botonConductor.style.display = 'inline-block';
-        if (botonConductor2) botonConductor2.style.display = 'inline-block';
-    } else if (tipoUsuario === 'user') {
-        // Mostrar botón para pasajeros
-        if (botonConductor) botonConductor.style.display = 'none';
-        if (botonConductor2) botonConductor2.style.display = 'none';
-    }
+  if (tipoUsuario === 'driver') {
+    botonConductor && botonConductor.classList.remove('d-none');
+    botonVehiculo  && botonVehiculo.classList.remove('d-none');
+  } else {
+    botonConductor && botonConductor.classList.add('d-none');
+    botonVehiculo  && botonVehiculo.classList.add('d-none');
+  }
 });
