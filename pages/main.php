@@ -1,16 +1,18 @@
 <?php
 session_start();
 
-// Verifica si hay sesión activa
-if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
-    header('Location: /index.php');
-    exit();    
-} else {
-    $cedula   = $_SESSION['cedula'];
-    $name     = $_SESSION['name'] ?? '';
-    $lastname = $_SESSION['lastname'] ?? '';
-    $userType = $_SESSION['userType'] ?? '';
+if (empty($_SESSION['cedula'])) {
+  header('Location: /index.php');
+  exit();
 }
+
+$cedula   = $_SESSION['cedula'];
+$name     = $_SESSION['name']     ?? '';
+$lastname = $_SESSION['lastname'] ?? '';
+$userType = $_SESSION['userType'] ?? '';
+
+// Normaliza una sola vez en servidor
+$isDriver = (strtolower(trim($userType)) === 'driver');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,29 +21,15 @@ if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aventones | Panel</title>
 
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Tu CSS -->
   <link rel="stylesheet" href="/css/logIn.css">
-
-  <script>
-    const session_data = {
-      cedula: "<?php echo htmlspecialchars($cedula); ?>",
-      name: "<?php echo htmlspecialchars($name); ?>",
-      lastname: "<?php echo htmlspecialchars($lastname); ?>",
-      userType: "<?php echo htmlspecialchars($userType); ?>"
-    };
-  </script>
-
-  <script src="/js/hide_pages.js"></script>
 </head>
 <body class="bg-light">
 
   <main class="container min-vh-100 py-5">
     <div class="text-center mb-5">
       <h1 class="brand-title fw-bold text-primary mb-2">AVENTONES</h1>
-      <h2 class="text-secondary m-0">Panel principal</h2>
+      <h2 class="text-secondary m-0">Panel Principal</h2>
       <p class="text-muted mt-2">
         Bienvenido, <?= htmlspecialchars($name . ' ' . $lastname) ?>.
       </p>
@@ -56,7 +44,10 @@ if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
           <div class="card-body">
             <h3 class="h5 text-primary mb-3">Rides</h3>
             <div class="d-grid gap-3">
-              <a href="/pages/ride_create.php" class="btn btn-primary w-100" id="botonConductor">➕ Crear Ride</a>
+              <a href="/pages/ride_create.php"
+                 class="btn btn-primary w-100 <?= $isDriver ? '' : 'd-none' ?>"
+                 id="botonConductor">➕ Crear Ride</a>
+
               <a href="/pages/ride.php" class="btn btn-info w-100 text-white">👀 Ver Rides</a>
               <a href="/pages/ride_edit.php" class="btn btn-outline-primary w-100">✏️ Editar Ride</a>
             </div>
@@ -70,7 +61,10 @@ if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
           <div class="card-body">
             <h3 class="h5 text-success mb-3">Vehículos</h3>
             <div class="d-grid gap-3">
-              <a href="/pages/vehicle_create.php" class="btn btn-success w-100">🚗 Crear Vehículo</a>
+              <a href="/pages/vehicle_create.php"
+                 class="btn btn-success w-100 <?= $isDriver ? '' : 'd-none' ?>"
+                 id="botoncrearvehiculo">🚗 Crear Vehículo</a>
+
               <a href="/pages/vehicle.php" class="btn btn-info w-100 text-white">👀 Ver Vehículos</a>
               <a href="/pages/vehicle_edit.php" class="btn btn-outline-success w-100">🛠️ Editar Vehículo</a>
             </div>
@@ -104,5 +98,12 @@ if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
     <p class="footer-copy">© Aventones.com</p>
   </footer>
 
+  <!-- (Opcional) Dejo el JS como refuerzo -->
+  <script>
+    window.session_data = {
+      userType: "<?= htmlspecialchars(strtolower(trim($userType))) ?>"
+    };
+  </script>
+  <script src="/js/hide_pages.js"></script>
 </body>
 </html>
