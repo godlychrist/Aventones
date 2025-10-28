@@ -4,19 +4,25 @@ session_start();
 if (empty($_SESSION['cedula'])) {
   header('Location: /index.php?err=session'); exit;
 }
-$cedula = (int)$_SESSION['cedula'];
+$cedula = $_SESSION['cedula']; // Mantener como está en sesión
 
 require_once __DIR__ . '/../common/connection.php';
 
-// Datos recibidos por GET (del listado)
-$ride_id     = $_GET['id'] ?? '';
-$name        = $_GET['name'] ?? '';
-$destination = $_GET['destination'] ?? '';
-$arrival     = $_GET['arrival'] ?? '';
-$date        = $_GET['date'] ?? '';
-$space       = isset($_GET['space']) ? (int)$_GET['space'] : 1;
-$space_cost  = $_GET['space_cost'] ?? '';
-$vehicle_id  = isset($_GET['vehicle_id']) ? (int)$_GET['vehicle_id'] : 0;
+// Datos recibidos por GET (del listado) - TRIM para eliminar espacios
+$ride_id     = isset($_GET['id']) ? (int)trim($_GET['id']) : 0;
+$name        = trim($_GET['name'] ?? '');
+$destination = trim($_GET['destination'] ?? '');
+$arrival     = trim($_GET['arrival'] ?? '');
+$date        = trim($_GET['date'] ?? '');
+$space       = isset($_GET['space']) ? (int)trim($_GET['space']) : 1;
+$space_cost  = trim($_GET['space_cost'] ?? '');
+$vehicle_id  = isset($_GET['vehicle_id']) ? (int)trim($_GET['vehicle_id']) : 0;
+
+// Validar que ride_id exista
+if ($ride_id <= 0) {
+  header('Location: /functions/showride.php?err=invalid_ride_id');
+  exit;
+}
 
 // Normalizar fecha para input datetime-local (YYYY-MM-DDTHH:MM)
 if (!empty($date)) {
@@ -27,7 +33,7 @@ if (!empty($date)) {
 $vehicles = [];
 $sql = "SELECT id, brand, model, capacity FROM vehicles WHERE user_id = ? ORDER BY brand, model";
 if ($st = mysqli_prepare($conn, $sql)) {
-  mysqli_stmt_bind_param($st, "i", $cedula);
+  mysqli_stmt_bind_param($st, "s", $cedula); // "s" porque cedula puede ser string
   mysqli_stmt_execute($st);
   $res = mysqli_stmt_get_result($st);
   while ($row = mysqli_fetch_assoc($res)) {
@@ -54,7 +60,7 @@ mysqli_close($conn);
 
       <form action="/functions/editRide.php" method="post" class="formulario-login text-start w-100 mt-3" style="max-width: 560px;">
 
-        <input type="hidden" name="ride_id" value="<?= htmlspecialchars($ride_id) ?>">
+        <input type="hidden" name="ride_id" value="<?= htmlspecialchars((string)$ride_id) ?>">
 
         <div class="mb-3">
           <label for="name" class="form-label fw-bold text-dark">Nombre del Ride</label>

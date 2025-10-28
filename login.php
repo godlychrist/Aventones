@@ -1,5 +1,5 @@
 <?php
-// /pages/login.php
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -7,28 +7,12 @@ session_start();
 
 // Si YA hay sesión, no tiene sentido mostrar el login
 if (!empty($_SESSION['cedula'])) {
-  header('Location: /pages/main.php'); // o /index.php si ese es tu home
+  header('Location: /pages/main.php');
   exit();
 }
 
-// Mensajes por ?err=
+// Mensaje de éxito opcional (por ejemplo, después de activar cuenta)
 $alert = '';
-if (isset($_GET['err'])) {
-  switch ($_GET['err']) {
-    case 'pendiente':
-      $alert = 'Tu cuenta está <strong>Pendiente</strong>. Revisa tu correo y activa la cuenta.';
-      break;
-    case 'inactivo':
-      $alert = 'Tu cuenta está <strong>Inactiva</strong>. Contacta al administrador.';
-      break;
-    case 'cred':
-    default:
-      $alert = 'Cédula o contraseña incorrectos.';
-      break;
-  }
-}
-
-// Mensaje de éxito (por ejemplo, después de activar cuenta)
 if (isset($_GET['ok']) && $_GET['ok'] === 'activated') {
   $alert = '✅ Tu cuenta fue activada. Ya puedes iniciar sesión.';
 }
@@ -51,13 +35,22 @@ if (isset($_GET['ok']) && $_GET['ok'] === 'activated') {
     <div class="login-wrapper shadow border border-primary rounded p-4 p-md-5 text-center d-flex flex-column align-items-center gap-3" style="max-width: 460px; width:100%;">
       <h1 class="brand-title fw-bold text-primary m-0">AVENTONES</h1>
 
+      <noscript>
+        <div class="alert alert-warning w-100 text-start mt-3">
+          Para iniciar sesión necesitas habilitar JavaScript.
+        </div>
+      </noscript>
+
+      <div id="alertBox" class="alert w-100 text-start mt-3 d-none" role="alert"></div>
+
       <?php if ($alert): ?>
         <div class="alert alert-info w-100 text-start mt-3" role="alert">
           <?= $alert ?>
         </div>
       <?php endif; ?>
 
-      <form action="/functions/login.php" method="post" class="formulario-login text-start w-100 mt-3">
+      <!-- El submit lo maneja /js/login.js -->
+      <form id="loginForm" class="formulario-login text-start w-100 mt-3" novalidate>
         <div class="mb-3">
           <label for="cedula" class="form-label fw-bold text-dark">Cédula</label>
           <input type="text" id="cedula" name="cedula" class="form-control" placeholder="1-2345-6789" required>
@@ -91,5 +84,8 @@ if (isset($_GET['ok']) && $_GET['ok'] === 'activated') {
     </nav>
     <p class="footer-copy">© Aventones.com</p>
   </footer>
+
+  <!-- JS de login (externo) -->
+  <script src="/js/login.js"></script>
 </body>
 </html>
