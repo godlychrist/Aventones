@@ -7,49 +7,108 @@ error_reporting(E_ALL);
 session_start();
 require_once __DIR__ . '/../common/connection.php';
 
+// Descubre BASE dinámicamente del path actual (p. ej. /Aventones)
+$parts = explode('/', trim($_SERVER['SCRIPT_NAME'] ?? '', '/')); // ['Aventones','functions','login.php']
+$BASE  = isset($parts[0]) && $parts[0] !== 'functions' ? '/' . $parts[0] : '';
+
+// Detecta si viene por fetch/AJAX
+$accept = $_SERVER['HTTP_ACCEPT'] ?? '';
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) || str_contains($accept, 'application/json');
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  header('Location: /pages/login.php');
+  if ($isAjax) {
+    http_response_code(405);
+    header('Content-Type: application/json');
+    echo json_encode(['ok' => false, 'error' => 'method']);
+    exit;
+  }
+  header('Location: ' . ($BASE ?: '') . '/pages/login.php');
   exit();
 }
 
-$cedula   = $_POST['cedula']   ?? '';
-$password = $_POST['password'] ?? '';
+$cedula   = trim($_POST['cedula']   ?? '');
+$password = trim($_POST['password'] ?? '');
 
 if ($cedula === '' || $password === '') {
-  header('Location: /pages/login.php?err=cred');
+  if ($isAjax) {
+    header('Content-Type: application/json');
+    echo json_encode(['ok' => false, 'error' => 'cred']);
+    exit;
+  }
+  header('Location: ' . ($BASE ?: '') . '/pages/login.php?err=cred');
   exit();
 }
 
-// Busca usuario (estado activa)
+// Buscar usuario por cédula
 $stmt = $conn->prepare(
   "SELECT cedula, name, lastname, userType, password, state
      FROM usuarios
     WHERE cedula = ?
     LIMIT 1"
 );
+
+if (!$stmt) {
+  if ($isAjax) {
+    header('Content-Type: application/json');
+    echo json_encode(['ok' => false, 'error' => 'cred']);
+    exit;
+  }
+  header('Location: ' . ($BASE ?: '') . '/pages/login.php?err=cred');
+  exit();
+}
+
 $stmt->bind_param('s', $cedula);
 $stmt->execute();
 $res = $stmt->get_result();
 
-if ($row = $res->fetch_assoc()) {
-  // Si no está activa
-  if ($row['state'] !== 'activa') {
-    header('Location: /pages/login.php?err=inactivo');
-    exit();
+if (!$res || $res->num_rows === 0) {
+  // No existe ese usuario
+  if ($isAjax) {
+    header('Content-Type: application/json');
+    echo json_encode(['ok' => false, 'error' => 'nouser']);
+    exit;
   }
-
-  // Comparación con MD5 (idealmente usa password_hash en el futuro)
-  if (hash('md5', $password) === $row['password']) {
-    $_SESSION['cedula']   = $row['cedula'];
-    $_SESSION['name']     = $row['name'];
-    $_SESSION['lastname'] = $row['lastname'];
-    $_SESSION['userType'] = $row['userType'];
-
-    header('Location: /pages/main.php');
-    exit();
-  }
+  header('Location: ' . ($BASE ?: '') . '/pages/login.php?err=nouser');
+  exit();
 }
 
-// Credenciales inválidas
-header('Location: /pages/login.php?err=cred');
+$row = $res->fetch_assoc();
+
+// Estado de cuenta
+if (!empty($row['state']) && $row['state'] !== 'activa') {
+  $err = ($row['state'] === 'pendiente') ? 'pendiente' : 'inactivo';
+  if ($isAjax) {
+    header('Content-Type: application/json');
+    echo json_encode(['ok' => false, 'error' => $err]);
+    exit;
+  }
+  header('Location: ' . ($BASE ?: '') . '/pages/login.php?err=' . $err);
+  exit();
+}
+
+// Comparar MD5 (idealmente migrar a password_hash/password_verify)
+$hash = md5($password);
+if ($hash !== (string)$row['password']) {
+  if ($isAjax) {
+    header('Content-Type: application/json');
+    echo json_encode(['ok' => false, 'error' => 'cred']);
+    exit;
+  }
+  header('Location: ' . ($BASE ?: '') . '/pages/login.php?err=cred');
+  exit();
+}
+
+// Login OK
+$_SESSION['cedula']   = $row['cedula'];
+$_SESSION['name']     = $row['name'];
+$_SESSION['lastname'] = $row['lastname'];
+$_SESSION['userType'] = $row['userType'];
+
+if ($isAjax) {
+  header('Content-Type: application/json');
+  echo json_encode(['ok' => true, 'redirect' => ($BASE ?: '') . '/pages/main.php']);
+  exit;
+}
+
+header('Location: ' . ($BASE ?: '') . '/pages/main.php');
 exit();

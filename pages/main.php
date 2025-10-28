@@ -1,20 +1,19 @@
 <?php
 session_start();
 
-// Si la sesión NO está iniciada (si $_SESSION['cedula'] no existe o está vacía), redirige.
-if (!isset($_SESSION['cedula']) || empty($_SESSION['cedula'])) {
-    header('Location: /index.php'); // O a la ruta correcta del login: /Aventones/index.php
-    exit();    
-} else {
-    // La sesión está iniciada, puedes obtener los datos del usuario si es necesario
-    $cedula = $_SESSION['cedula'];
-    $name = $_SESSION['name'];
-    $lastname = $_SESSION['lastname'];
-    $userType = $_SESSION['userType'];
+if (empty($_SESSION['cedula'])) {
+  header('Location: /index.php');
+  exit();
+}
 
-  }
+$cedula   = $_SESSION['cedula'];
+$name     = $_SESSION['name']     ?? '';
+$lastname = $_SESSION['lastname'] ?? '';
+$userType = $_SESSION['userType'] ?? '';
+
+// Normaliza una sola vez en servidor
+$isDriver = (strtolower(trim($userType)) === 'driver');
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
