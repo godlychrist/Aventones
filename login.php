@@ -5,13 +5,13 @@ error_reporting(E_ALL);
 
 session_start();
 
-// Si YA hay sesión, no tiene sentido mostrar el login
+// Si YA hay sesión, redirige al panel
 if (!empty($_SESSION['cedula'])) {
-  header('Location: /pages/main.php'); // o /index.php si ese es tu home
+  header('Location: /pages/main.php');
   exit();
 }
 
-// Mensajes por ?err=
+// Mensajes por GET (?err=)
 $alert = '';
 if (isset($_GET['err'])) {
   switch ($_GET['err']) {
@@ -28,7 +28,7 @@ if (isset($_GET['err'])) {
   }
 }
 
-// Mensaje de éxito (por ejemplo, después de activar cuenta)
+// Mensaje de éxito (por ejemplo tras activar cuenta)
 if (isset($_GET['ok']) && $_GET['ok'] === 'activated') {
   $alert = '✅ Tu cuenta fue activada. Ya puedes iniciar sesión.';
 }
@@ -40,10 +40,7 @@ if (isset($_GET['ok']) && $_GET['ok'] === 'activated') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aventones | Login</title>
 
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-
-  <!-- Tu CSS -->
   <link rel="stylesheet" href="/css/logIn.css">
 </head>
 <body>
@@ -51,13 +48,18 @@ if (isset($_GET['ok']) && $_GET['ok'] === 'activated') {
     <div class="login-wrapper shadow border border-primary rounded p-4 p-md-5 text-center d-flex flex-column align-items-center gap-3" style="max-width: 460px; width:100%;">
       <h1 class="brand-title fw-bold text-primary m-0">AVENTONES</h1>
 
+      <!-- ✅ ALERTA PHP (solo si redirige sin JS) -->
       <?php if ($alert): ?>
         <div class="alert alert-info w-100 text-start mt-3" role="alert">
           <?= $alert ?>
         </div>
       <?php endif; ?>
 
-      <form action="/functions/login.php" method="post" class="formulario-login text-start w-100 mt-3">
+      <!-- ✅ FORMULARIO -->
+      <form id="loginForm" class="formulario-login text-start w-100 mt-3">
+        <!-- Alerta dinámica controlada por JS -->
+        <div id="alertBox" class="alert d-none w-100 text-start mb-3" role="alert"></div>
+
         <div class="mb-3">
           <label for="cedula" class="form-label fw-bold text-dark">Cédula</label>
           <input type="text" id="cedula" name="cedula" class="form-control" placeholder="1-2345-6789" required>
@@ -76,7 +78,7 @@ if (isset($_GET['ok']) && $_GET['ok'] === 'activated') {
         </p>
 
         <div class="d-flex justify-content-center mt-3">
-          <button type="submit" class="login-btn btn btn-primary">Login</button>
+          <button type="submit" class="login-btn btn btn-primary w-100">Iniciar sesión</button>
         </div>
       </form>
     </div>
@@ -91,5 +93,7 @@ if (isset($_GET['ok']) && $_GET['ok'] === 'activated') {
     </nav>
     <p class="footer-copy">© Aventones.com</p>
   </footer>
+
+  <script src="/js/login.js"></script>
 </body>
 </html>
