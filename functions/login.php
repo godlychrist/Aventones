@@ -86,7 +86,7 @@ if (!empty($row['state']) && $row['state'] !== 'activa') {
   exit();
 }
 
-// Comparar MD5 (idealmente migrar a password_hash/password_verify)
+// )
 $hash = md5($password);
 if ($hash !== (string)$row['password']) {
   if ($isAjax) {

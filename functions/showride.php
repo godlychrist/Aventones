@@ -23,7 +23,7 @@ require_once __DIR__ . '/../common/connection.php';
 // 🛑 2. CONSULTA SQL FILTRADA POR user_cedula
 $sql = "
   SELECT
-  r.id, 
+  r.id AS ride_id, 
   r.name, 
   r.destination, 
   r.arrival, 
@@ -32,7 +32,7 @@ $sql = "
   r.space_cost, 
   r.user_id, 
   r.vehicle_id, 
-  v.id, 
+  v.id AS vehicle_id, 
   v.brand,            
   v.model,            
   v.year,             
@@ -73,7 +73,7 @@ if ($res = mysqli_query($conn, $sql)) {
 
         // Llena el array de rides
         $rides[] = [
-            'id'            => (int)($row['id'] ?? 0),
+            'id'            => (int)($row['ride_id'] ?? 0),
             'name'          => $row['name'] ?? '',
             'destination'   => $row['destination'] ?? '',
             'arrival'       => $row['arrival'] ?? '',
@@ -81,6 +81,7 @@ if ($res = mysqli_query($conn, $sql)) {
             'space'         => (int)($row['space'] ?? 0),
             'space_cost'    => $row['space_cost'] ?? '',
             'vehicle'       => $vehText,
+            'vehicle_id'    => (int)($row['vehicle_id'] ?? 0),
         ];
     }
     mysqli_free_result($res);
