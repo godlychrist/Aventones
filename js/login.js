@@ -12,14 +12,11 @@
     alertBox.innerHTML = '';
   }
 
-  // Detecta el prefijo/base de la app:
-  // - Si estás en /pages/login.php => "" (raíz)
-  // - Si estás en /Aventones/pages/login.php => "/Aventones"
-  // - Si estás en /algo/mas/pages/login.php => "/algo/mas"
+  // Detecta la base de la app (p.ej. /Aventones)
   function getBase() {
-    const path = location.pathname;            // p.ej. "/pages/login.php" o "/Aventones/pages/login.php"
+    const path = location.pathname;
     const m = path.match(/^(.*?)(\/pages\/|\/functions\/|\/js\/)/);
-    return m ? m[1] : '';                      // prefijo antes de /pages|/functions|/js
+    return m ? m[1] : '';
   }
 
   if (!form) return;
@@ -36,7 +33,7 @@
       return;
     }
 
-    const BASE = getBase();                    // "" o "/Aventones"
+    const BASE = getBase();
     const url  = `${BASE}/functions/login.php`;
 
     try {
@@ -55,7 +52,6 @@
       if (ct.includes('application/json')) {
         data = await resp.json();
       } else {
-        // Por si el server devolvió HTML (404/500), no rompas el flujo.
         const txt = await resp.text();
         console.warn('Respuesta no-JSON:', resp.status, txt);
         showAlert('Error de red o servidor. Intenta de nuevo.', 'danger');
@@ -67,7 +63,6 @@
         return;
       }
 
-      // Manejo de errores del backend
       switch (data && data.error) {
         case 'nouser':
           showAlert(
