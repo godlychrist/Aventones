@@ -19,9 +19,11 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../common/connection.php';
 
+
+// 🛑 2. CONSULTA SQL FILTRADA POR user_cedula
 $sql = "
   SELECT
-  r.id AS ride_id,
+  r.id, 
   r.name, 
   r.destination, 
   r.arrival, 
@@ -29,31 +31,27 @@ $sql = "
   r.space, 
   r.space_cost, 
   r.user_id, 
-  r.vehicle_id,
+  r.vehicle_id, 
+  v.id, 
   v.brand,            
   v.model,            
   v.year,             
   v.plateNum,
-  u.cedula 
-  FROM rides r 
+  u.cedula FROM rides r 
   INNER JOIN vehicles v ON v.id = r.vehicle_id 
   INNER JOIN usuarios u ON u.cedula = r.user_id 
-  WHERE u.cedula = ?
+  WHERE u.cedula = '$cedula'
 ";
 
 $rides = [];
 
-if ($st = mysqli_prepare($conn, $sql)) {
-    mysqli_stmt_bind_param($st, "s", $cedula);
-    mysqli_stmt_execute($st);
-    $res = mysqli_stmt_get_result($st);
-    
+if ($res = mysqli_query($conn, $sql)) {
     while ($row = mysqli_fetch_assoc($res)) {
 
         // Normaliza campos
         $brand = trim($row['brand'] ?? '');
         $model = trim($row['model'] ?? '');
-        $plate = isset($row['plateNum']) ? trim((string)$row['plateNum']) : '';
+        $plate = isset($row['plateNum']) ? (string)$row['plateNum'] : '';
         $yearTxt = (!empty($row['year']) && $row['year'] !== '0000-00-00')
             ? substr($row['year'], 0, 4)
             : '';
@@ -73,21 +71,19 @@ if ($st = mysqli_prepare($conn, $sql)) {
         // Une todo; si no hay nada, pon un guion
         $vehText = count($vehParts) ? implode(' ', $vehParts) : '—';
 
-        // Llena el array de rides - usar ride_id en lugar de id
+        // Llena el array de rides
         $rides[] = [
-            'id'            => (int)($row['ride_id'] ?? 0),
-            'name'          => trim($row['name'] ?? ''),
-            'destination'   => trim($row['destination'] ?? ''),
-            'arrival'       => trim($row['arrival'] ?? ''),
-            'date'          => trim($row['date'] ?? ''),
+            'id'            => (int)($row['id'] ?? 0),
+            'name'          => $row['name'] ?? '',
+            'destination'   => $row['destination'] ?? '',
+            'arrival'       => $row['arrival'] ?? '',
+            'date'          => $row['date'] ?? '',
             'space'         => (int)($row['space'] ?? 0),
-            'space_cost'    => trim($row['space_cost'] ?? ''),
-            'vehicle_id'    => (int)($row['vehicle_id'] ?? 0),
+            'space_cost'    => $row['space_cost'] ?? '',
             'vehicle'       => $vehText,
         ];
     }
     mysqli_free_result($res);
-    mysqli_stmt_close($st);
 } else {
     error_log('showride query error: ' . mysqli_error($conn));
     $_GET['err'] = 'query';

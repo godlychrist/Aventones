@@ -101,19 +101,19 @@ if (!isset($rides)) {
                     <td><?= htmlspecialchars($r['vehicle'] ?? '') ?></td>
                     <td>
                       <div class="d-flex gap-2">
-                                          <!-- Editar: solo enlace (sin funcionalidad) -->
-                                        <a class="btn btn-sm btn-outline-primary"
-                    href="/pages/ride_edit.php?id=<?= urlencode((string)($r['id'] ?? 0))?>
-                      &name=<?= urlencode((string)($r['name'] ?? ''))?>
-                      &destination=<?= urlencode((string)($r['destination'] ?? ''))?>
-                      &arrival=<?= urlencode((string)($r['arrival'] ?? ''))?>
-                      &date=<?= urlencode((string)($r['date'] ?? ''))?>
-                      &space=<?= urlencode((string)($r['space'] ?? ''))?>
-                      &space_cost=<?= urlencode((string)($r['space_cost'] ?? ''))?>
-                      &vehicle_id=<?= urlencode((string)($r['vehicle_id'] ?? 0))?>">
-                    ✏ Editar
-                          </a>
-                                              <!-- Eliminar: funcional (POST) -->
+                        <!-- Editar: solo enlace (sin funcionalidad) -->
+                    <a class="btn btn-sm btn-outline-primary"
+                      href="/pages/ride_edit.php?id=<?= urlencode((string)($r['id'] ?? 0))?>
+                        &name=<?=urlencode((string)($r['name'] ?? ''))?>
+                        &destination=<?=urlencode((string)($r['destination'] ?? ''))?>
+                        &arrival=<?=urlencode((string)($r['arrival'] ?? ''))?>
+                        &date=<?=urlencode((string)($r['date'] ?? ''))?>
+                        &space=<?=urlencode((string)($r['space'] ?? ''))?>
+                        &space_cost=<?=urlencode((string)($r['space_cost'] ?? ''))?>">
+                        ✏ Editar
+                      </a>
+
+                        <!-- Eliminar: funcional (POST) -->
                         <form action="/functions/rides_delete.php" method="post" onsubmit="return confirm('¿Eliminar este ride?');">
                           <input type="hidden" name="ride_id" value="<?= htmlspecialchars((string)($r['id'] ?? 0)) ?>">
                           <button type="submit" class="btn btn-sm btn-outline-danger">🗑 Eliminar</button>
