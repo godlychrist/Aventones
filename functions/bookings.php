@@ -25,7 +25,7 @@ $sql_rides_filtered = "SELECT
     r.user_id
 FROM rides r 
 INNER JOIN vehicles v ON r.vehicle_id = v.id
-WHERE 1";
+WHERE 1 AND r.status = 'active'";
 
 if (!empty($filter_origin)) {
     $safe_origin = mysqli_real_escape_string($conn, $filter_origin);
