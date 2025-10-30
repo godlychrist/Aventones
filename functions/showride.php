@@ -40,7 +40,7 @@ $sql = "
   u.cedula FROM rides r 
   INNER JOIN vehicles v ON v.id = r.vehicle_id 
   INNER JOIN usuarios u ON u.cedula = r.user_id 
-  WHERE u.cedula = '$cedula'
+  WHERE u.cedula = '$cedula' AND r.status = 'active'
 ";
 
 $rides = [];
