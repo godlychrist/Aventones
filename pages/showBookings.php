@@ -114,8 +114,8 @@ mysqli_close($conn); // Ahora sí, se cierra la conexión.
                         <label for="vehicle_id" class="form-label fw-bold text-dark">Vehículo</label>
                         <select id="vehicle_id" name="vehicle_id" class="form-select" required readonly>
                             <?php foreach ($vehicles as $v): 
-                  $selected = ($vehicle_id === (int)$v['id']) ? 'selected' : '';
-              ?>
+                                $selected = ($vehicle_id === (int)$v['id']) ? 'selected' : ''; 
+                            ?>
                             <option value="<?= htmlspecialchars($v['id']) ?>" data-capacity="<?= (int)$v['capacity'] ?>"
                                 <?= $selected ?>>
                                 <?= htmlspecialchars($v['brand'] . ' ' . $v['model']) ?>
