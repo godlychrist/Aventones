@@ -15,6 +15,7 @@ $userType = $_SESSION['userType'] ?? '';
         r.name AS ride_name,        
         b.state AS booking_state,    
         d.name AS driver_name,
+        r.id AS ride_id,
         b.id      
         FROM
             bookings b
