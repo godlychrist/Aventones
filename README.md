@@ -98,12 +98,3 @@ El proyecto incluye un **script ejecutable desde consola (PHP CLI)**:
 ### 📦 Ejemplo de ejecución
 ```bash
 php validatePendingReservations.php 30
-
-| Categoría            | Tecnología                                 |
-| -------------------- | ------------------------------------------ |
-| Backend              | PHP 8+, MySQL                              |
-| Frontend             | HTML5, CSS3, Tailwind CSS, Flowbite        |
-| Servidor local       | XAMPP                                      |
-| Control de versiones | Git + GitHub                               |
-| Librerías            | PHPMailer (envío de correos), DateTime PHP |
-| Estructura           | Patrón MVC / POO                           |
