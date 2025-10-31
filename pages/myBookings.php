@@ -9,6 +9,7 @@
     $ok  = $_GET['ok']  ?? '';
     $err = $_GET['err'] ?? '';
     $booking_id = $_GET['id'] ?? '';
+    $ride_id = $_GET['ride_id'] ?? '';
 
 
 
