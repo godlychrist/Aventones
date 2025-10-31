@@ -8,7 +8,7 @@ function acceptBooking() {
     // Lógica para aceptar la reserva
     global $conn;
     global $userType;
-    
+
     if ( $userType == 'driver' ) {
         if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
             $bookingId = ( int )$_POST[ 'id' ];
@@ -55,21 +55,23 @@ function rejectBooking() {
 }
 
 function rejectUserBooking() {
-    // Lógica para rechazar la reserva
+    // Lógica para aceptar la reserva
     global $conn;
     global $userType;
 
     if ( $userType == 'user' ) {
         if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
             $bookingId = ( int )$_POST[ 'id' ];
+            $ride_id = ( int )$_POST[ 'ride_id' ];
 
             $sql = "UPDATE bookings SET state = 'rejected' WHERE id = '$bookingId'";
+            $sql2 = "UPDATE rides SET status = 'active' WHERE id = '$ride_id'";
 
-            if ( mysqli_query( $conn, $sql ) ) {
+            if ( mysqli_query( $conn, $sql ) && mysqli_query( $conn, $sql2 ) ) {
                 header( 'Location: /pages/myBookings.php' );
                 exit();
             } else {
-                echo 'Error al rechazar la reserva: ' . mysqli_error( $conn );
+                echo 'Error al aceptar la reserva: ' . mysqli_error( $conn );
             }
         }
         ;
