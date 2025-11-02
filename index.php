@@ -154,10 +154,11 @@ $err = $_GET['err'] ?? '';
                                             Reservar Ride
                                         </a>
                                         <?php else: ?>
-                                        <a href="/pages/showBookings.php" class="btn btn-sm btn-info text-white"
+                                        <button type="button" class="btn btn-sm btn-info text-white"
+                                            onclick="alertAndRedirect('/index.php');"
                                             title="Iniciar sesión para reservar">
                                             Reservar Ride
-                                        </a>
+                                        </button>
                                         <?php endif; ?>
                                     </div>
                                 </td>
@@ -184,6 +185,14 @@ $err = $_GET['err'] ?? '';
             <p class="footer-copy">© Aventones.com</p>
         </footer>
     </div>
+    <script>
+    // Función simple que muestra la alerta y redirige
+    function alertAndRedirect(url) {
+        alert("⚠️ Debes iniciar sesión para poder reservar un ride.");
+        window.location.href = url;
+    }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
