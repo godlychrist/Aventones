@@ -39,7 +39,7 @@ function rejectBooking() {
         if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
             $bookingId = ( int )$_POST[ 'id' ];
 
-            $sql = "UPDATE bookings SET status = 'rejected' WHERE id = '$bookingId'";
+            $sql = "UPDATE bookings SET state = 'rejected' WHERE id = '$bookingId'";
 
             if ( mysqli_query( $conn, $sql ) ) {
                 header( 'Location: /pages/myBookings.php' );

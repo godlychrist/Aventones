@@ -98,7 +98,7 @@ mysqli_close($conn);
 
   <footer class="footer text-center mt-4">
     <nav class="footer-nav mb-2">
-      <a href="/pages/public_rides.php">Rides</a> |
+      <a href="/pages/ride.php">Rides</a> |
       <a href="/index.php">Login</a> |
       <a href="/pages/registration_passenger.php">Registro Pasajero</a> |
       <a href="/pages/registration_driver.php">Registro Conductor</a>

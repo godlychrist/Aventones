@@ -89,8 +89,8 @@
 
   <footer class="footer text-center mt-4">
     <nav class="footer-nav mb-2">
-      <a href="/pages/public_rides.php">Rides</a> |
-      <a href="../index_php">Login</a> |
+      <a href="/index.php">Rides</a> |
+      <a href="/login.php">Login</a> |
       <a href="/pages/registration_passenger.php">Registro Pasajero</a> |
       <a href="/pages/registration_driver.php">Registro Conductor</a>
     </nav>
