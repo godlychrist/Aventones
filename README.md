@@ -97,4 +97,4 @@ El proyecto incluye un **script ejecutable desde consola (PHP CLI)**:
 
 ### 📦 Ejemplo de ejecución
 ```bash
-php validatePendingReservations.php 30
+php notifiy.php 30
