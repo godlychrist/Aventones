@@ -13,6 +13,9 @@ $userType = $_SESSION['userType'] ?? '';
 
 // Normaliza una sola vez en servidor
 $isDriver = (strtolower(trim($userType)) === 'driver');
+$isUser = (strtolower(trim($userType)) === 'user');
+$isAdmin = (strtolower(trim($userType)) === 'admin');
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -85,7 +88,7 @@ $isDriver = (strtolower(trim($userType)) === 'driver');
                 </div>
             </div>
 
-            <?php else: ?>
+            <?php elseif ($isUser): ?>
             <!-- VISTA PARA PASAJEROS: 1 Columna -->
 
             <div class="col-12 col-md-6 col-lg-5">
@@ -109,6 +112,25 @@ $isDriver = (strtolower(trim($userType)) === 'driver');
                     </div>
                 </div>
             </div>
+
+            <?php elseif ($isAdmin): ?>
+
+            <div class="col-12 col-md-6 col-lg-5">
+                <div class="card shadow-sm border-primary">
+                    <div class="card-body p-4">
+                        <h3 class="h5 text-primary mb-4 text-center">Panel de Administrador</h3>
+                        <div class="d-grid gap-3">
+                            <a href="/pages/users.php" class="btn btn-primary w-100 py-2">
+                                🔍 Ver Usuarios
+                            </a>
+                            <a href="/functions/logout.php" class="btn btn-outline-secondary w-100 py-2">
+                                🚪 Cerrar sesión
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <?php endif; ?>
 
