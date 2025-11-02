@@ -2,8 +2,6 @@
 
     require ('../functions/bookings.php');
     require ('../functions/showBookings.php');
-    session_start();
-    $is_logged_in = isset($_SESSION['cedula']);
     
 
     $ok  = $_GET['ok']  ?? '';
