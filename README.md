@@ -97,4 +97,4 @@ El proyecto incluye un **script ejecutable desde consola (PHP CLI)**:
 
 ### 📦 Ejemplo de ejecución
 ```bash
-php notifiy.php 30
+php notify.php 30
