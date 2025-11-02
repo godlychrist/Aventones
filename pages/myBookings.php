@@ -44,7 +44,7 @@
                         </nav>
                         <div class="d-flex align-items-center gap-3">
                             <a href="/pages/profile.php" class="btn btn-sm btn-outline-secondary">Perfil</a>
-                            <a href="login.php" class="btn btn-sm btn-outline-secondary">Sign In</a>
+                            <a href="/functions/logout.php" class="btn btn-sm btn-outline-secondary">Cerrar Sesión</a>
                         </div>
                     </div>
                 </div>
