@@ -76,6 +76,17 @@ $cedula = (int)$_SESSION['cedula'];
     </div>
   </main>
 
+  <!-- Footer copiado de /pages/ride_create.php -->
+  <footer class="footer text-center mt-4">
+    <nav class="footer-nav mb-2">
+      <a href="/pages/ride.php">Rides</a> |
+      <a href="/index.php">Login</a> |
+      <a href="/pages/registration_passenger.php">Registro Pasajero</a> |
+      <a href="/pages/registration_driver.php">Registro Conductor</a>
+    </nav>
+    <p class="footer-copy">© Aventones.com</p>
+  </footer>
+
   <!-- JS externo que “clampa” capacity a 1..4 -->
   <script src="/js/vehicle_form.js"></script>
 </body>
