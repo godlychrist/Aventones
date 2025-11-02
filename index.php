@@ -177,8 +177,8 @@ $err = $_GET['err'] ?? '';
                 <a href="/pages/main.php">Panel</a> |
                 <a href="/functions/showride.php" class="fw-bold">Rides</a> |
                 <a href="/functions/showvehicle.php">Vehículos</a> |
-                <a href="/pages/bookings.php">Reservas</a> |
-                <a href="/index.php">Login</a> |
+                <a href="/pages/myBookings.php">Reservas</a> |
+                <a href="/login.php">Login</a> |
                 <a href="/pages/registration_driver.php">Registro</a>
             </nav>
             <p class="footer-copy">© Aventones.com</p>

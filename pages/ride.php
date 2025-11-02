@@ -42,7 +42,7 @@ if (!isset($rides)) {
             <!-- ✅ Apunta al loader que sí arma $rides -->
             <a href="/functions/showride.php" class="fw-bold">Rides</a>
             <a href="/functions/showvehicle.php">Vehículos</a>
-            <a href="/pages/bookings.php">Reservas</a>
+            <a href="/pages/myBookings.php">Reservas</a>
           </nav>
           <div class="d-flex align-items-center gap-3">
             <a href="/pages/profile.php" class="btn btn-sm btn-outline-secondary">Perfil</a>

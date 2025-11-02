@@ -115,7 +115,7 @@ $isDriver = (strtolower(trim($userType)) === 'driver');
   <footer class="footer text-center mt-5">
     <nav class="footer-nav mb-2">
       <a href="/index.php">Buscar Rides</a> |
-      <a href="/pages/bookings.php">Mis Reservas</a>
+      <a href="/pages/myBookings.php">Mis Reservas</a>
       <?php if ($isDriver): ?>
         | <a href="/functions/showride.php">Mis Rides</a> |
         <a href="/functions/showvehicle.php">Mis Vehículos</a>

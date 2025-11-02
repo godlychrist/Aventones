@@ -9,10 +9,6 @@
     $ok  = $_GET['ok']  ?? '';
     $err = $_GET['err'] ?? '';
     $booking_id = $_GET['id'] ?? '';
-    $ride_id = $_GET['ride_id'] ?? '';
-
-
-
 
 
     ?>
@@ -44,7 +40,7 @@
                         </nav>
                         <div class="d-flex align-items-center gap-3">
                             <a href="/pages/profile.php" class="btn btn-sm btn-outline-secondary">Perfil</a>
-                            <a href="login.php" class="btn btn-sm btn-outline-secondary">Sign In</a>
+                            <a href="/login.php" class="btn btn-sm btn-outline-secondary">Sign In</a>
                         </div>
                     </div>
                 </div>
@@ -196,13 +192,11 @@
                     <a href="/pages/main.php">Panel</a> |
                     <a href="/functions/showride.php" class="fw-bold">Rides</a> |
                     <a href="/functions/showvehicle.php">Vehículos</a> |
-                    <a href="/pages/bookings.php">Reservas</a> |
-                    <a href="/index.php">Login</a> |
+                    <a href="/login.php">Login</a> |
                     <a href="/pages/registration_driver.php">Registro</a>
                 </nav>
                 <p class="footer-copy">© Aventones.com</p>
             </footer>
         </div>
     </body>
-
     </html>
