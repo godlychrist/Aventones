@@ -1,6 +1,8 @@
 <?php
-// /pages/vehicle_create.php
-session_start();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if (empty($_SESSION['cedula'])) {
   header('Location: /index.php?err=session'); exit;
 }
