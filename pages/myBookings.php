@@ -7,6 +7,11 @@
     $ok  = $_GET['ok']  ?? '';
     $err = $_GET['err'] ?? '';
     $booking_id = $_GET['id'] ?? '';
+    $is_logged_in = isset($_SESSION['cedula']);
+    if(!$is_logged_in) {
+        header('Location: /index.php?err=login_required');
+        exit;
+    }
 
 
     ?>
@@ -56,51 +61,7 @@
                     <div class="alert alert-danger"><?= htmlspecialchars($err) ?></div>
                     <?php endif; ?>
 
-                    <form action="" method="get" class="mb-4 p-3 border rounded shadow-sm bg-light">
-                        <div class="row g-3 align-items-end">
-                            <div class="col-12 col-md-4">
-                                <label for="filter_origin" class="form-label fw-bold">Lugar de Salida (Origen)</label>
-                                <select id="filter_origin" name="origin" class="form-select">
-                                    <option value="">— Todos los Orígenes —</option>
-                                    <?php 
-                            
-                            foreach ($destinations as $destino) {
-                                $valor = htmlspecialchars($destino['destination'] ?? '');
-                                echo "<option value=\"{$valor}\">$valor</option>";
-                            }
-                            
-                            ?>
 
-                                </select>
-                            </div>
-
-                            <div class="col-12 col-md-4">
-                                <label for="filter_destination" class="form-label fw-bold">Lugar de Llegada
-                                    (Destino)</label>
-                                <select id="filter_destination" name="destination" class="form-select">
-                                    <option value="">— Todos los Destinos —</option>
-                                    <?php
-
-                                foreach($data as $arrivalPlace) {
-                                    $valor = htmlspecialchars($arrivalPlace['arrival'] ?? '');
-                                    echo "<option value=\"{$valor}\">$valor</option>";
-                                }
-
-                            ?>
-                                </select>
-                            </div>
-
-                            <div class="col-12 col-md-4">
-                                <label for="filter_date" class="form-label fw-bold">Fecha</label>
-                                <input type="date" id="filter_date" name="date" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-end mt-3">
-                            <button type="submit" class="btn btn-secondary me-2">Buscar / Filtrar</button>
-                            <a href="/index.php" class="btn btn-outline-secondary">Limpiar Filtros</a>
-                        </div>
-                    </form>
                     <input type="hidden" name="booking_id" value="<?= htmlspecialchars($booking_id) ?>">
                     <div class="d-flex justify-content-end mb-3">
                     </div>
@@ -197,4 +158,5 @@
             </footer>
         </div>
     </body>
+
     </html>
