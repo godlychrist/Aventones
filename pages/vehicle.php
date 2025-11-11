@@ -1,15 +1,21 @@
 <?php
 // /pages/vehicles.php
+session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 $ok  = $_GET['ok']  ?? '';
 $err = $_GET['err'] ?? '';
 
-// Guard: si se abre directo sin pasar por el loader, redirige.
 if (!isset($vehicles)) {
   header('Location: /functions/showvehicle.php');
   exit;
+}
+
+$is_logged_in = isset($_SESSION['cedula']);
+if(!$is_logged_in) {
+    header('Location: /index.php?err=login_required');
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -43,7 +49,7 @@ if (!isset($vehicles)) {
                     </nav>
                     <div class="d-flex align-items-center gap-3">
                         <a href="/pages/profile.php" class="btn btn-sm btn-outline-secondary">Perfil</a>
-                        <a href="/index.php" class="btn btn-sm btn-outline-secondary">Cerrar sesión</a>
+                        <a href="/functions/logout.php" class="btn btn-sm btn-outline-secondary">Cerrar sesión</a>
                     </div>
                 </div>
             </div>
